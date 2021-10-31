@@ -31,11 +31,14 @@ async function run() {
 
         });
 
-        // GET API (Bookings)
-        app.get('/myBookings', async (req, res) => {
-            const cursor = servicesCollection.find({});
-            const bookings = await cursor.toArray();
-            res.send(services);
+        // POST API (Bookings)
+        app.post('/myBookings', async (req, res) => {
+            const booking = req.body;
+            console.log(booking);
+
+            const result = await bookingsCollection.insertOne(booking);
+            res.json(result)
+            console.log(result);
 
         });
 
@@ -49,19 +52,14 @@ async function run() {
         })
 
         // POST API 
-        app.post('/services', async (req, res) => {
-            const service = req.body;
-            console.log(service);
-            // const service = {
-            //     "destination": "Netherlands",
-            //     "price": "$800",
-            //     "description": "The Biggest Adventure You Can Ever Take Is To Live The Life Of Your Dreams!We have dedicated members for nursing elderly people. They don't need to worry about anything.",
-            //     "image": "https://getaway.qodeinteractive.com/wp-content/uploads/2017/08/tour-3-img-4.jpg"
-            // }
-            const result = await servicesCollection.insertOne(service);
-            res.json(result)
-            console.log(result);
-        })
+        // app.post('/services', async (req, res) => {
+        //     const service = req.body;
+        //     console.log(service);
+
+        //     const result = await servicesCollection.insertOne(service);
+        //     res.json(result)
+        //     console.log(result);
+        // })
     }
     finally {
         // await client.close();
