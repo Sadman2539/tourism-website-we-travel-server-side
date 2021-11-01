@@ -31,17 +31,33 @@ async function run() {
 
         });
 
-        // POST API (Bookings)
-        app.post('/myBookings', async (req, res) => {
+        // POST API (Add a new Service)
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            console.log(service);
+
+            const result = await servicesCollection.insertOne(service);
+            res.json(result)
+            console.log(result);
+        })
+
+        //GET API (Bookings)
+        app.get('/manageBookings', async (req, res) => {
+            const cursor = bookingsCollection.find({});
+            const bookings = await cursor.toArray();
+            res.send(bookings);
+
+        });
+        // POST API (manageBookings)
+        app.post('/manageBookings', async (req, res) => {
             const booking = req.body;
             console.log(booking);
 
             const result = await bookingsCollection.insertOne(booking);
             res.json(result)
-            console.log(result);
+            // console.log(result);
 
         });
-
         //GET Single Service 
         app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
@@ -50,16 +66,15 @@ async function run() {
             const service = await servicesCollection.findOne(query);
             res.json(service);
         })
+        //Delete API 
+        app.delete('./manageBookings:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await bookingsCollection.deleteOne(query);
+            res.json(result);
 
-        // POST API 
-        // app.post('/services', async (req, res) => {
-        //     const service = req.body;
-        //     console.log(service);
+        })
 
-        //     const result = await servicesCollection.insertOne(service);
-        //     res.json(result)
-        //     console.log(result);
-        // })
     }
     finally {
         // await client.close();
