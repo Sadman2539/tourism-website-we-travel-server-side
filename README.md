@@ -4,8 +4,9 @@
 
 ## Services We Provide:
 
-- We provide best travel packages for users
-- User can select their package from our existing packages
-- We care about users' safety
+- All visitors can see our service and choose the best package for them.
+- Visitors can sign up using an email and password or with a google account then
+can place orders and manage personal orders.
+- Users can add a new service.
 - We're professional in dealings traveling problems
 - Users will get customer care from our dedicated members
